@@ -1,10 +1,40 @@
-task hello{
+
+task hello {
     description 'this is hello task.'
     doLast{
         println "hello world"
     }
 }
 
-hello.onlyIf{
+hello.onlyIf {
     !project.hasProperty('abc')
 }
+description 'this is root project demo.'
+group 'com.dvsnier'
+version "0.0.1"
+println project.name
+
+println '\n\nproperty:'
+println project
+println name   
+println path   
+// println project.description
+println description
+println projectDir 
+println buildDir  
+println group   
+println version  
+println ant    
+
+task build_dir {
+    doLast{
+        def dir = ['src/main/groovy', 'src/main/java', 'build',
+        'test/main/groovy', 'test/main/java', 'out' ] as String[]
+        dir.each {
+            println "the current file directory is $it"
+            mkdir it
+        }
+    }
+}
+
+project.hello.dependsOn('build_dir')
