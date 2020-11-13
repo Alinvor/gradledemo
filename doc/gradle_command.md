@@ -30,4 +30,7 @@ gradle wrapper
 
 // 任务命令
 ./gradlew <project-path>:tasks
+
+// 查看所有任务命令
+./gradlew <project-path>:tasks --all
 ```
