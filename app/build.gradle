@@ -28,8 +28,8 @@ println ant
 
 task build_dir {
     doLast{
-        def dir = ['src/main/groovy', 'src/main/java', 'build',
-        'test/main/groovy', 'test/main/java', 'out' ] as String[]
+        def dir = ['./src/main/groovy', './src/main/java', './build',
+        './test/main/groovy', './test/main/java', './../out' ] as String[]
         dir.each {
             println "the current file directory is $it"
             mkdir it
