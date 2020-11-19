@@ -1,8 +1,9 @@
 
 task hello {
     description 'this is hello task.'
+    group 'com.dvsnier.demo'
     doLast{
-        println "hello world"
+        println "hello world with hello task."
     }
 }
 
@@ -27,6 +28,7 @@ println version
 println ant    
 
 task build_dir {
+    group 'com.dvsnier'
     doLast{
         def dir = ['./src/main/groovy', './src/main/java', './build',
         './test/main/groovy', './test/main/java', './../out' ] as String[]
@@ -38,3 +40,18 @@ task build_dir {
 }
 
 project.hello.dependsOn('build_dir')
+
+
+class ASCPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.task('asc') {
+            doLast {
+                println 'hello world from the ASCPlugin.'
+            }
+        }
+    }
+}
+
+apply plugin: ASCPlugin
+
+project.hello.dependsOn('asc')
