@@ -75,3 +75,35 @@ asc {
     arg1 = 1
     arg2 = 2
 }
+
+class ASCPluginFileTask extends DefaultTask {
+
+    def destination
+
+    @OutputFile
+    File getDestination(){
+        project.file(destination)
+    }
+
+    @TaskAction
+    def build(){
+        def file = getDestination()
+        file.parentFile.mkdirs()
+        file.write 'this is ASCPluginFileTask Object.'
+    }
+}
+
+task build_file(type: ASCPluginFileTask){
+    destination {
+        project.taskFile
+    }
+}
+
+task obtainFileContent(dependsOn: build_file){
+    doLast {
+        println file(taskFile).text
+    }
+}
+
+ext.taskFile = "$buildDir/task_info.txt"
+project.hello.dependsOn('obtainFileContent')
