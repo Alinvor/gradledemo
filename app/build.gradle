@@ -44,6 +44,9 @@ project.hello.dependsOn('build_dir')
 
 class ASCPluginExtension {
     String msg = 'this is a asc plugin extension object.'
+    int what
+    int arg1
+    int arg2
 }
 
 class ASCPlugin implements Plugin<Project> {
@@ -53,7 +56,8 @@ class ASCPlugin implements Plugin<Project> {
         project.task('asc') {
             doLast {
                 // println 'hello world from the ASCPlugin.'
-                println extension.msg
+                // println extension.msg
+                println extension.msg + ': \n' + "arg1 -> ${extension.arg1} and arg2 -> ${extension.arg2}"
             }
         }
     }
@@ -62,4 +66,12 @@ class ASCPlugin implements Plugin<Project> {
 apply plugin: ASCPlugin
 
 project.hello.dependsOn('asc')
-asc.msg  = '资深好男人'
+// 方式一
+// asc.msg  = '资深好男人'
+// 方式二
+asc {
+    msg = 'DSL block'
+    what = 200
+    arg1 = 1
+    arg2 = 2
+}
